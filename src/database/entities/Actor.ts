@@ -2,10 +2,12 @@ import {
   Column,
   Entity,
   Index,
+  ManyToMany,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { FilmActor } from "./FilmActor";
+import { Film } from "./Film";
 
 @Index("actor_pkey", ["actorId"], { unique: true })
 @Entity("actor", { schema: "public" })
@@ -21,4 +23,8 @@ export class Actor {
 
   @OneToMany(() => FilmActor, (filmActor) => filmActor.actor)
   filmActors: FilmActor[];
+
+  // @ManyToMany(() => Film, (film) => (film.actors))
+  // films: Film[];
+
 }

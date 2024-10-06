@@ -3,6 +3,8 @@ import {
   Entity,
   Index,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -11,6 +13,7 @@ import { Language } from "./Language";
 import { FilmActor } from "./FilmActor";
 import { FilmCategory } from "./FilmCategory";
 import { Inventory } from "./Inventory";
+import { Actor } from "./Actor";
 
 @Index("film_pkey", ["filmId"], { unique: true })
 @Index("film_fulltext_idx", ["fulltext"], {})
@@ -97,6 +100,21 @@ export class Film {
 
   @OneToMany(() => FilmActor, (filmActor) => filmActor.film)
   filmActors: FilmActor[];
+  // @ManyToMany(() => Actor, (actor) => (actor.films), {cascade: true, onDelete: 'CASCADE'})
+  // @JoinTable({
+  //   name: 'film_actor',
+  //   joinColumn: {
+  //     name: 'film_id',
+  //     referencedColumnName: 'filmId',
+  //     foreignKeyConstraintName: 'film_actor_film_id_fkey',
+  //   },
+  //   inverseJoinColumn: {
+  //     name: 'actor_id',
+  //     referencedColumnName: 'actorId',
+  //     foreignKeyConstraintName: 'film_actor_actor_id_fkey',
+  //   }
+  // })
+  // actors: Film[];
 
   @OneToMany(() => FilmCategory, (filmCategory) => filmCategory.film)
   filmCategories: FilmCategory[];
